@@ -1,0 +1,29 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int n = prices.size(); // Eng: I decide to do this task through dynamic programming, so I take this approach, Rus: решаю сделать эту задачу через динамическое программирование поэтому делаю такой подход
+        if (n <= 1) // Eng: If the number of prices is less than or equal to 1, then the profit is 0, Rus: Если количество цен меньше или равно 1, то прибыль равна 0
+            return 0;
+
+        vector<int> dp(n, 0); // Eng: Create a vector dp of size n, initialize it to zeros, Rus: Создаем вектор dp размера n, инициализируем его нулями
+
+        int min_Profit = prices[0]; // Eng: // Variable for storing the minimum price, Rus: Переменная для хранения минимальной цены
+
+        // Eng: Go through all days starting from the first, Rus: Проходим по всем дням начиная с первого
+        for (int i = 1; i < n; i++) {
+            max(dp[n - 1], prices[i] - min_Profit);
+
+            // Eng: Update the minimum price if the current price is less, Rus: Обновляем минимальную цену, если текущая цена меньше
+            min_Profit = min(min_Profit, prices[i]);
+        }
+
+        // Eng: Return the maximum profit that can be received, Rus: Возвращаем максимальную прибыль, которую можно получить
+        return dp[n - 1];
+    }
+};
